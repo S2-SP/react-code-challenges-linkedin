@@ -4,30 +4,26 @@ export default function FormValidator () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [errorMessage, setErrorMessage] = useState('');
 
-  const findErrors = () =>{
+  const [message, setMessage] = useState('')
+
+  const findErrors = () => {
     const errors = []
+    if (!email || !password || !passwordConfirm) errors.push('All fields must be filled in')
+    if ([...email].filter(i => i === '@').length !== 1) {
+      errors.push('An email must have exactly one @ sign')
+    }
+    if (password.length <= 8) errors.push('Passwords must be 8 characters or longer')
+    if (password !== passwordConfirm) errors.push('Passwords must match')
 
-    if(!email || !password || !passwordConfirm) errors.push('All fields must be filled in.')
-    if([...email].filter(i => i=== '@').length !== 1){
-      errors.push('An email must only have one @ sign');
-    }
-    if(password.length < 8){
-      errors.push('A password length must be 8 characters or longer than that');
-    }
-    if(password !== passwordConfirm){
-      errors.push('Passwords does not match');
-    }
-    return errors;
+    return errors
   }
 
-  const handleSubmit = e =>{
-    e.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault()
 
     const errors = findErrors()
-    setErrorMessage(errors.length ? errors.join(", ") : 'User Created!');
-    
+    setMessage(errors.length ? errors.join(', ') : 'User created!')
   }
 
   return (
@@ -48,7 +44,7 @@ export default function FormValidator () {
         type='password' name='password-confirm'
         onChange={e => setPasswordConfirm(e.target.value)}
       />
-      {errorMessage}
+      {message}
       <input type='submit' value='Submit' />
     </form>
   )
