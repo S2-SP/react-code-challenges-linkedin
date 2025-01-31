@@ -1,4 +1,3 @@
-import { color } from 'three/webgpu'
 import Color from './Color'
 
 const colors = [{
@@ -19,10 +18,11 @@ const colors = [{
 }]
 
 export default function ColorRenderer () {
-  return (
-    <h2>
-      {colors.map(color => <Color hex={color.hex} name={color.name} ></Color>) }
-      
-    </h2>
+  return colors.map(color =>
+    <Color
+      name={color.name}
+      hex={color.hex}
+      key={color.hex}
+    />
   )
 }
