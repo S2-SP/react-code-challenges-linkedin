@@ -1,24 +1,22 @@
-import axios from 'axios';
-import { useState } from 'react';
-export default function DogPics () {
-  const API= 'https://dog.ceo/dog-api/'
-  const [dogPic, setDogPic] = useState('');
+import { useEffect, useState } from 'react'
 
-  const handleClick = async() =>{
-    try{
-      const result = await fetch('https://dog.ceo/api/breeds/image/random');
-      const dog = await result.json()
-      setDogPic(dog.message);
-    }catch(error){
-      console.error('Error fetching dog image:', error);
-    }
-    
-  }
+const getDogPic = async () => {
+  const response = await fetch('https://dog.ceo/api/breeds/image/random')
+  const dog = await response.json()
+  return dog.message
+}
+
+export default function DogPics () {
+  const [dogPic, setDogPic] = useState('')
+
+  useEffect(() => {
+    getDogPic().then(dogPic => setDogPic(dogPic))
+  }, [])
 
   return (
     <div className='dog-pics'>
-     {dogPic && <img src={dogPic} alt='Random Dog'/>}
-      <button onClick={handleClick}>🐶</button>
+      <img src={dogPic} />
+      <button onClick={async e => setDogPic(await getDogPic())}>🐶</button>
     </div>
   )
 }
