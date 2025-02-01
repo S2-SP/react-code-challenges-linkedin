@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Color from './Color'
 
 const colors = [{
@@ -20,21 +20,12 @@ const colors = [{
 
 export default function ColorPicker () {
   const [backgroundColor, setBackgroundColor] = useState('white')
-  const [color, setColor] = useState('')
-
-  useEffect(()=>{
-
-    if(color){
-      setBackgroundColor(color)
-    }
-    
-  }, [color])
 
   return (
     <div className='page' style={{ backgroundColor }}>
       {
         colors.map(color => (
-          <Color key={color.hex} hex={color.hex} name={color.name} setBackgroundColor={setColor}/>
+          <Color key={color.hex} hex={color.hex} name={color.name} />
         ))
       }
     </div>
