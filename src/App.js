@@ -1,10 +1,10 @@
 import './App.css'
-import ToggleWindowEvent from './06-add-window-event/ToggleWindowEvent'
+import ColorPicker from './07-color-picker/ColorPicker'
 
 function App () {
   return (
     <div className='App'>
-      <ToggleWindowEvent />
+      <ColorPicker />
     </div>
   )
 }
